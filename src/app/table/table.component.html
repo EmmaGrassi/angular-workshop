@@ -1,0 +1,17 @@
+<input type="text" [(ngModel)]="filter" (keyup)="doFilter()"/><button *ngIf="filter" (click)="clearFilter()">X</button>
+<div *ngIf="filter=='matthijs'">Looking for me?</div>
+
+<table>
+  <tr>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th>E-mail</th>
+    <th>Date created</th>
+  </tr>
+  <tr *ngFor="let user of filteredUsers">
+    <td>{{user.firstName}}</td>
+    <td>{{user.lastName}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.dateCreated | date:'dd-MM-yyyy'}}</td>
+  </tr>
+</table>

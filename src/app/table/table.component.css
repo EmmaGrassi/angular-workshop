@@ -1,0 +1,20 @@
+input {
+    padding:5px;
+    border: 1px solid gray;
+    margin:1rem;
+    margin-left: 0;
+}
+
+table {
+    border:1px solid gray;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #ddd;
+}
+
+th, td {
+    border:1px solid gray;
+    padding:5px;
+}
