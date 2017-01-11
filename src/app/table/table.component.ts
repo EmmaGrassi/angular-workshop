@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
+
 import {DataService} from '../data.service';
 import {User} from '../user';
 
@@ -13,8 +15,10 @@ export class TableComponent implements OnInit {
   filter: string;
   filteredUsers: User[];
 
-  constructor(private dataService: DataService) {
-  }
+  constructor(
+    private router: Router,
+    private dataService: DataService
+  ) {}
 
   ngOnInit() {
     this.doFilter();
@@ -32,17 +36,10 @@ export class TableComponent implements OnInit {
   }
 
   createUser() {
-    let user = new User();
-    user.firstName = 'Matthijs';
-    user.lastName = 'Bierman';
-    user.email = 'matthijs.bierman@geckotech.nl';
-    this.dataService.createUser(user).then(() => {
-      this.doFilter();
-    }).catch(rejection => console.log(rejection.json()));
+    this.router.navigate(['/create-user']);
   }
 
-  getUser(id: number) {
-    this.dataService.getUser(id).then(user => console.log(user));
+  getUser(userId: number) {
+    this.router.navigate(['/user', userId]);
   }
-
 }
