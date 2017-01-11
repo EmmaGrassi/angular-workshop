@@ -1,9 +1,19 @@
-<div>
-  <input type="text" [(ngModel)]="filter" (keyup)="doFilter()"/><button *ngIf="filter" (click)="clearFilter()">X</button>
-  <button (click)="createUser()">create new</button>
-</div>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input name="filter" type="text" [(ngModel)]="filter" (keyup)="doFilter()"/>
+          <button type="button" class="btn btn-danger" *ngIf="filter" (click)="clearFilter()">X</button>
+          <button type="button" class="btn btn-default" (click)="createUser()">Create</button>
+        </div>
+        <a class="navbar-brand">Angular Workshop</a>
+      </form>
+    </div>
+  </div>
+</nav>
 
-<table>
+<table class="table">
   <thead>
   <tr>
     <th>Firstname</th>

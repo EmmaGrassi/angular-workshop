@@ -1,0 +1,7 @@
+<div class="form-group" [class.has-error]="control?.errors && (control?.dirty || control?.touched)">
+  <label class="col-sm-2 control-label">{{label}}:</label>
+  <div class="col-sm-6">
+    <ng-content></ng-content>
+    <div class="alert alert-danger" role="alert" *ngIf="control?.errors && (control?.dirty || control?.touched)">{{error}}</div>
+  </div>
+</div>

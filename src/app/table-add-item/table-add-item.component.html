@@ -1,25 +1,26 @@
-<form (ngSubmit)="onSubmit()">
-  <div>
-    <label for="firstName">First name: </label>
-    <input type="text" required [(ngModel)]="user.firstName" id="firstName" name="firstName" #firstName="ngModel" />
+<div class="page-header">
+  <h3>Create user</h3>
+</div>
 
-    <div *ngIf="firstName.errors && (firstName.dirty || firstName.touched)">Please fill in the first name</div>
+<form (ngSubmit)="onSubmit()" #form="ngForm" class="form-horizontal">
+
+  <field label="First name" error="Please enter a first name.">
+    <input type="text" name="firstName" [(ngModel)]="user.firstName" required/>
+  </field>
+
+  <field label="Last name" error="Please enter a last name.">
+    <input type="text" name="lastName" [(ngModel)]="user.lastName" required/>
+  </field>
+
+  <field label="E-mail" error="Please enter a valid e-mail address.">
+    <input type="text" name="email" [(ngModel)]="user.email" required pattern=".+@.+"/>
+  </field>
+
+  <div class="row">
+    <div class="col-sm-8 text-right">
+      <button class="btn btn-default" type="button" (click)="goBack()">Back</button>
+      <button class="btn btn-primary" type="submit" [disabled]="!form.form.valid">Save</button>
+    </div>
   </div>
 
-  <div>
-    <label for="lastName">Last name: </label>
-    <input type="text" required [(ngModel)]="user.lastName" id="lastName" name="firstName" #lastName="ngModel" />
-
-    <div *ngIf="lastName.errors && (lastName.dirty || lastName.touched)">Please fill in the last name</div>
-  </div>
-
-  <div>
-    <label for="email">Email: </label>
-    <input type="text" required [(ngModel)]="user.email" id="email" name="email" #email="ngModel" />
-
-    <div *ngIf="email.errors && (email.dirty || email.touched)">Please fill in a valid email address</div>
-  </div>
-
-  <button (click)="goBack()">Back</button>
-  <button type="submit">Save</button>
 </form>

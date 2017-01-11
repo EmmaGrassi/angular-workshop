@@ -9,13 +9,15 @@ import { TableItemComponent } from './table-item/table-item.component';
 import { TableAddItemComponent } from './table-add-item/table-add-item.component';
 
 import { AppRoutingModule } from './app.routing.module';
+import { FieldComponent } from './field/field.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
     TableItemComponent,
-    TableAddItemComponent
+    TableAddItemComponent,
+    FieldComponent
   ],
   imports: [
     BrowserModule,

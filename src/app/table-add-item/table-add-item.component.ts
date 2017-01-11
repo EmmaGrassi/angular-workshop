@@ -10,6 +10,7 @@ import { User } from '../user';
   providers: [DataService]
 })
 export class TableAddItemComponent {
+
   user: User = new User();
 
   constructor(
