@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 
 import { DataService } from '../data.service';
-import {ObservableInput} from "rxjs/Observable";
-import {User} from "../user";
+import { User } from "../user";
 
 @Component({
   selector: 'app-table-item',

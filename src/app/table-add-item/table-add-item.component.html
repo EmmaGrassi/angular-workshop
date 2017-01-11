@@ -1,1 +1,25 @@
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <label for="firstName">First name: </label>
+    <input type="text" required [(ngModel)]="user.firstName" id="firstName" name="firstName" #firstName="ngModel" />
 
+    <div *ngIf="firstName.errors && (firstName.dirty || firstName.touched)">Please fill in the first name</div>
+  </div>
+
+  <div>
+    <label for="lastName">Last name: </label>
+    <input type="text" required [(ngModel)]="user.lastName" id="lastName" name="firstName" #lastName="ngModel" />
+
+    <div *ngIf="lastName.errors && (lastName.dirty || lastName.touched)">Please fill in the last name</div>
+  </div>
+
+  <div>
+    <label for="email">Email: </label>
+    <input type="text" required [(ngModel)]="user.email" id="email" name="email" #email="ngModel" />
+
+    <div *ngIf="email.errors && (email.dirty || email.touched)">Please fill in a valid email address</div>
+  </div>
+
+  <button (click)="goBack()">Back</button>
+  <button type="submit">Save</button>
+</form>
