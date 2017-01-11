@@ -1,36 +1,39 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {Http, Headers, URLSearchParams} from '@angular/http';
+import {User} from './user';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class DataService {
 
-  constructor() { }
+  private readonly ENDPOINT = 'http://localhost:8080/angular-workshop-backend';
+  private headers = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json'});
 
-  public listUsers(): User[] {
-    let matthijs = new User();
-    matthijs.email = 'matthijs@geckotech.nl';
-    matthijs.dateCreated = new Date(11, 0, 117);
-    matthijs.firstName = 'Matthijs';
-    matthijs.lastName = 'Bierman';
-    let ernst = new User();
-    ernst.email = 'ernst@geckotech.nl';
-    ernst.firstName = 'Ernst';
-    ernst.lastName = 'Nolte';
-    ernst.dateCreated = new Date(8, 0, 117);
-    // hardcoded returned values, normally this would come from an API
-    return [matthijs, ernst];
+  constructor(private http: Http) {
   }
 
-}
-
-// FIXME should be in a separate class instead of embedded in the service
-export class User {
-  firstName: string;
-  lastName: string;
-  email: string;
-  enabled: boolean;
-  dateCreated: Date;
-
-  constructor() {
-    this.enabled = true;
+  public queryUsers(query: string): Promise<User[]> {
+    let params = new URLSearchParams();
+    params.set('query', query);
+    return this.http.get(this.ENDPOINT + '/users', {
+      headers: this.headers,
+      search: params
+    }).toPromise()
+      .then(response => response.json() as User[]);
   }
+
+  public getUser(id: number): Promise<User> {
+    return this.http
+      .get(this.ENDPOINT + '/users/' + id, {headers: this.headers})
+      .toPromise()
+      .then(response => response.json() as User);
+  }
+
+  public createUser(user: User): Promise<User> {
+    return this.http
+      .post(this.ENDPOINT + '/users', user, {headers: this.headers})
+      .toPromise()
+      .then(response => response.json() as User);
+  }
+
 }

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {User, DataService} from '../data.service';
+import {Component, OnInit} from '@angular/core';
+import {DataService} from '../data.service';
+import {User} from '../user';
 
 @Component({
   selector: 'app-table',
@@ -10,38 +11,38 @@ import {User, DataService} from '../data.service';
 export class TableComponent implements OnInit {
 
   filter: string;
-  users: User[];
   filteredUsers: User[];
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService) {
+  }
 
   ngOnInit() {
-    this.users = this.dataService.listUsers();
-    this.filteredUsers = this.users;
+    this.doFilter();
   }
 
   doFilter() {
-    if (this.filter === '') {
-      this.filteredUsers = this.users;
-    } else {
-      let val = this.filter.toLowerCase();
-      this.filteredUsers = this.users.slice(0).filter((user) => {
-        let matches = false;
-        for (let prop in user) {
-          if (user.hasOwnProperty(prop) && typeof(user[prop]) === 'string') {
-            if (user[prop].toLowerCase().indexOf(val) > -1) {
-              matches = true;
-            }
-          }
-        }
-        return matches;
-      });
-    }
+    this.dataService.queryUsers(this.filter).then(users => {
+      this.filteredUsers = users;
+    });
   }
 
   clearFilter() {
     this.filter = '';
     this.doFilter();
+  }
+
+  createUser() {
+    let user = new User();
+    user.firstName = 'Matthijs';
+    user.lastName = 'Bierman';
+    user.email = 'matthijs.bierman@geckotech.nl';
+    this.dataService.createUser(user).then(() => {
+      this.doFilter();
+    }).catch(rejection => console.log(rejection.json()));
+  }
+
+  getUser(id: number) {
+    this.dataService.getUser(id).then(user => console.log(user));
   }
 
 }
